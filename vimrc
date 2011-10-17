@@ -5,6 +5,9 @@ filetype plugin indent on         " Turn on file type detection.
 
 set showcmd                       " Display incomplete commands.
 set showmode                      " Display the mode you're in.
+set showmatch                     " Match parens, brackets, ...
+
+set foldenable                    " Auto fold code
 
 set backspace=indent,eol,start    " Intuitive backspacing.
 
@@ -31,7 +34,7 @@ set visualbell                    " No beeping.
 
 set nobackup                      " Don't make a backup before overwriting a file.
 set nowritebackup                 " And again.
-set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
+set directory=$HOME/.vim/tmp/     " Keep swap files in one location
 
 set tabstop=2                     " Global tab width.
 set shiftwidth=2                  " And again, related.
@@ -43,6 +46,11 @@ set laststatus=2                  " Show the status line all the time
 set statusline=%#StatusLineNC#%{GitBranchInfoString()}\ %n:%f%m\ %y%=%l,%c\ \ \ %P\ 
 
 colorscheme vividchalk            " Color theme
+
+" Remove trailing whitespaces and ^M chars
+autocmd FileType javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+
+let mapleader = ','              " Default leader is \
 
 " Tab mappings.
 map <leader>tt :tabnew<cr>
@@ -62,6 +70,7 @@ map <leader>tm :tabmove
 " git-branch-info
 let g:git_branch_status_head_current=1
 let g:git_branch_status_text=""
+let g:git_branch_status_nogit=""
 
 "" autocomplete funcs and identifiers for languages
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
