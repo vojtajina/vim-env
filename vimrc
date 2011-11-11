@@ -28,6 +28,7 @@ set incsearch                     " Highlight matches as you type.
 set hlsearch                      " Highlight matches.
 
 set wrap                          " Turn on line wrapping.
+set textwidth=100                 " wrap lines at 100
 set scrolloff=3                   " Show 3 lines of context around the cursor.
 
 set title                         " Set the terminal's title
@@ -42,31 +43,51 @@ set tabstop=2                     " Global tab width.
 set shiftwidth=2                  " And again, related.
 set expandtab                     " Use spaces instead of tabs
 
-set textwidth=100                 " wrap lines at 100
+set mouse=a                       " enable mouse for all modes
 
 set laststatus=2                  " Show the status line all the time
-set statusline=%#StatusLineNC#%{GitBranchInfoString()}\ %n:%f%m\ %y%=%l,%c\ \ \ %P\ 
+set statusline=%#StatusLineNC#%{GitBranchInfoString()}\ %n:%f%m\ ,,,,,%y%=,,,,%l,%c\ \ \ %P\
 
-colorscheme vividchalk            " Color theme
+set autoindent                    " Auto indenting
+set autoread                      " No prompt for file changes outside Vim
 
-" Remove trailing whitespaces and ^M chars
-autocmd FileType javascript autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+set splitright                    " Add new window towards the right
+set splitbelow                    " ... and bottom
+
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+set background=dark
+colorscheme solarized
+
+" Remove trailing whitespaces on save
+autocmd BufWritePre * :call TrimWhiteSpaces()
+function TrimWhiteSpaces()
+  let l=line('.')
+  %s/\s\+$//e
+  exe "normal! " + l
+endfunction
+
+" Display trailing whitespaces and tabs
+set list listchars=tab:»·,trail:·
 
 let mapleader = ','              " Default leader is \
 
-" Tab mappings.
-map <leader>tt :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>to :tabonly<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprevious<cr>
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
-map <leader>tm :tabmove
+" kj - The intuitive way to get out of insert mode
+imap kj         <Esc>
+
+" Indent/unindent visual mode selection
+vmap <tab>      >gv
+vmap <S-tab>    <gv
+
+" Map ,e to open files in the same directory as the current file
+map <leader>e :e <C-R>=expand("%:h")<cr>/
 
 " Uncomment to use Jamis Buck's file opening plugin
 "map <Leader>t :FuzzyFinderTextMate<Enter>
+
+" CTRL+C, CTRL+V
+vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>
 
 " PLUGIN SETTINGS
 " git-branch-info
@@ -78,4 +99,15 @@ let g:git_branch_status_nogit=""
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" NerdTree
+map \ :NERDTreeFind<CR>
+
+" Windows
+map <leader>s <C-w>s
+map <leader>v <C-w>v
+map <leader>h <C-w>h
+map <leader>j <C-w>j
+map <leader>k <C-w>k
+map <leader>l <C-w>l
 
