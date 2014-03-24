@@ -111,3 +111,13 @@ map <leader>j <C-w>j
 map <leader>k <C-w>k
 map <leader>l <C-w>l
 
+
+" Colemak
+" Up/down/left/right
+nnoremap n h|xnoremap n h|onoremap n h|
+nnoremap e k|xnoremap e k|onoremap e k|
+nnoremap n j|xnoremap n j|onoremap n j|
+nnoremap i l|xnoremap i l|onoremap i l|
+
+" kj - The intuitive way to get out of insert mode
+imap en         <Esc>
