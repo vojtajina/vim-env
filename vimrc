@@ -73,7 +73,7 @@ set list listchars=tab:»·,trail:·
 let mapleader = ','              " Default leader is \
 
 " kj - The intuitive way to get out of insert mode
-imap kj         <Esc>
+"imap kj         <Esc>
 
 " Indent/unindent visual mode selection
 vmap <tab>      >gv
@@ -119,5 +119,3 @@ nnoremap e k|xnoremap e k|onoremap e k|
 nnoremap n j|xnoremap n j|onoremap n j|
 nnoremap i l|xnoremap i l|onoremap i l|
 
-" kj - The intuitive way to get out of insert mode
-imap en         <Esc>
