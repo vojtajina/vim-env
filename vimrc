@@ -114,8 +114,7 @@ map <leader>l <C-w>l
 
 " Colemak
 " Up/down/left/right
-nnoremap n h|xnoremap n h|onoremap n h|
 nnoremap e k|xnoremap e k|onoremap e k|
 nnoremap n j|xnoremap n j|onoremap n j|
+" h stays the same
 nnoremap i l|xnoremap i l|onoremap i l|
-
